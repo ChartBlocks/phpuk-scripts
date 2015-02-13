@@ -12,6 +12,7 @@
             "Php2014\\": "src/"
         }
     },
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Arron Woods",
