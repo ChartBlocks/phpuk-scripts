@@ -70,7 +70,8 @@ foreach ($result->attendees as $object) {
         'ticket' => $ticketName,
         'period' => $ticketPeriod,
         'barcode' => $barcode,
-        'qre' => $barcode . '.png',
+        'qre' => $attendee->id . '_number.png',
+        'vcard' => $attendee->id . '_vcard.png',
     );
 }
 

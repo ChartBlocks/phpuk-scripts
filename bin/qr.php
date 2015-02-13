@@ -2,6 +2,7 @@
 
 chdir(__DIR__ . '/../');
 
+use JeroenDesloovere\VCard\VCard;
 require('vendor/autoload.php');
 $config = require('config/local.php');
 
@@ -36,9 +37,27 @@ foreach ($result->attendees as $object) {
         $barcode = $barcodeObject->barcode->id;
     }
 
-    $filename = __DIR__ . '/../qr/' . $attendee->id . '.png';
-    echo 'Generating QR for ' . $attendee->id . ' ' . $barcode . PHP_EOL;
-    \PHPQRCode\QRcode::png($barcode, $filename, 'L', 30, 4);
+    // define vcard
+    $vcard = new VCard();
+
+    // add personal data
+    $vcard->addName($attendee->last_name, $attendee->first_name);
+
+    // add work data
+    $vcard->addCompany($attendee->company);
+    $vcard->addJobtitle($attendee->job_title);
+    $vcard->addEmail($attendee->email);
+    $vcard->addPhoneNumber($attendee->work_phone, 'PREF;WORK');
+    $vcard->addPhoneNumber($attendee->work_phone, 'WORK');
+    $vcard->addURL($attendee->website);
+
+    $numberFilename = __DIR__ . '/../qr/' . $attendee->id . '_number.png';
+    echo 'Generating QR number for ' . $attendee->id . ' ' . $barcode . PHP_EOL;
+    \PHPQRCode\QRcode::png($barcode, $numberFilename, 'L', 30, 4);
+
+    $vcardFilename = __DIR__ . '/../qr/' . $attendee->id . '_vcard.png';
+    echo 'Generating QR vcard for ' . $attendee->id . ' ' . $barcode . PHP_EOL;
+    \PHPQRCode\QRcode::png($vcard->buildVCard(), $vcardFilename, 'L', 30, 4);
 }
 
 ksort($data);
