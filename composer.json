@@ -5,7 +5,8 @@
         "jublonet/codebird-php": "2.4.1",
         "chartblocks/php-rest-sdk": "~1.0",
         "fennb/phirehose": "dev-master",
-        "aferrandini/phpqrcode": "1.0.1"
+        "aferrandini/phpqrcode": "1.0.1",
+	"jeroendesloovere/vcard": "1.1.*"
     },
     "autoload": {
         "psr-0": {
