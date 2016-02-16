@@ -13,8 +13,8 @@ define("TWITTER_CONSUMER_SECRET", $config['twitter']['secret']);
 define("OAUTH_TOKEN", $config['twitter']['token']);
 define("OAUTH_SECRET", $config['twitter']['token_secret']);
 
-$rangeStart = strtotime('2014-02-21 06:00');
-$rangeEnd = strtotime('2014-02-23');
+$rangeStart = strtotime('2016-02-16 06:00');
+$rangeEnd = strtotime('2016-02-20 23:00');
 $rangeStep = 3600;
 $ranges = array_fill_keys(range($rangeStart, $rangeEnd, $rangeStep), null);
 
@@ -48,11 +48,9 @@ foreach ($ranges as $start => $count) {
         return $count;
     };
 
-    $sochiCount = $getCount($config['twitter']['tracks']['sochi'], $collection, $start, $rangeStep);
     $phpCount = $getCount($config['twitter']['tracks']['php'], $collection, $start, $rangeStep);
 
     $counts[date('c', $start)] = array(
-        'sochi' => $sochiCount,
         'php' => $phpCount,
     );
 }
@@ -62,8 +60,7 @@ $rowSet = new \ChartBlocks\DataSet\RowSetDynamic($set);
 foreach ($counts as $date => $count) {
     $row = new \ChartBlocks\DataSet\Row($set, array('row' => $r));
     $row->setCell(1, $date);
-    $row->setCell(2, $count['sochi']);
-    $row->setCell(3, $count['php']);
+    $row->setCell(2, $count['php']);
 
     $rowSet->addRow($row);
     $r++;

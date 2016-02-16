@@ -20,8 +20,8 @@ $result = $eb->event_list_attendees(array(
 
 $data = array();
 
-$friday = strtotime('2014-02-21');
-$saturday = strtotime('2014-02-22');
+$thursday = strtotime('2016-02-18');
+$friday = strtotime('2016-02-19');
 
 //$checkIns = array(
 //    strtotime('2013-02-21 07:00'),
@@ -62,8 +62,8 @@ foreach ($result->attendees as $object) {
         'company' => empty($attendee->company) ? 'n/a' : $attendee->company,
         'age' => empty($attendee->age) ? 'n/a' : $attendee->age,
         'gender' => empty($attendee->gender) ? 'n/a' : $attendee->gender,
+        'checkedInThursday' => ($floor >= $thursday && $floor < $thursday + 86400) ? 1 : null,
         'checkedInFriday' => ($floor >= $friday && $floor < $friday + 86400) ? 1 : null,
-        'checkedInSaturday' => ($floor >= $saturday && $floor < $saturday + 86400) ? 1 : null,
         'checkedInAt' => date('H:i', $floor),
         'i' => 1
     );
